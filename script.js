@@ -1,9 +1,9 @@
 // Assignment code here
 
 // Available characters (ADD REST ONCE CODE WORKS)
-upperCaseCharacter = ["A", "B", "C", "D", "E", "F"];
-lowerCaseCharacter = ["a", "b", "c", "d", "e", "f"];
-numberCharacter = ["1", "2", "3", "4", "5", "6"];
+upperCaseCharacter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+lowerCaseCharacter = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+numberCharacter = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 specialCharacter = ["!", "@", "#", "€", "%", "&", "/", "(", ")", "=", "?"];
 
 // Store users answers in variables
@@ -12,6 +12,7 @@ var askUpperCaseCharacters = false;
 var askLowerCaseCharacters = false;
 var askNumberCharacters = false;
 var askSpecialCharacters = false;
+
 
 
 // 1. App goes through a series of questions to determine what kind of a password the user wants
@@ -43,20 +44,50 @@ function generatePassword() {
   var draftPassword = "";
 
   // 2. App goes through some kind of loop that concatenates a random letter from each array into a draft string and repeats it as long as the amount of requested characters are met 
-  if (askUpperCaseCharacters) {
-    draftPassword = draftPassword.concat(upperCaseCharacter);
-  }
+  while (draftPassword.length < askPasswordLength) {
 
-  if (askLowerCaseCharacters) {
-    draftPassword = draftPassword.concat(lowerCaseCharacter);
-  }
+    // Choose random character from uppercase characters array
+    if (askUpperCaseCharacters && draftPassword.length < askPasswordLength) {
 
-  if (askNumberCharacters) {
-    draftPassword = draftPassword.concat(numberCharacter);
-  }
+      function randomNumber() {
+        var i = Math.floor(Math.random() * upperCaseCharacter.length);
+        console.log(i);
+        draftPassword = draftPassword.concat(upperCaseCharacter[i]);
+      }
+      randomNumber();
 
-  if (askSpecialCharacters) {
-    draftPassword = draftPassword.concat(specialCharacter);
+    }
+
+    if (askLowerCaseCharacters && draftPassword.length < askPasswordLength) {
+      function randomNumber() {
+        var i = Math.floor(Math.random() * lowerCaseCharacter.length);
+        console.log(i);
+        draftPassword = draftPassword.concat(lowerCaseCharacter[i]);
+      }
+      randomNumber();
+
+    }
+
+    if (askNumberCharacters && draftPassword.length < askPasswordLength) {
+
+      function randomNumber() {
+        var i = Math.floor(Math.random() * numberCharacter.length);
+        console.log(i);
+        draftPassword = draftPassword.concat(numberCharacter[i]);
+      }
+      randomNumber();
+
+    }
+
+    if (askSpecialCharacters && draftPassword.length < askPasswordLength) {
+      function randomNumber() {
+        var i = Math.floor(Math.random() * specialCharacter.length);
+        console.log(i);
+        draftPassword = draftPassword.concat(specialCharacter[i]);
+      }
+      randomNumber();
+
+    }
   }
 
   console.log("Created password so far: " + draftPassword);
@@ -64,14 +95,12 @@ function generatePassword() {
   // 3. App picks characters from the draft password string into the final password
   var finalPassword = "";
 
-  // Randomizer logic
+  // Loop until final password has the requested amount of characters
   for (var i = 0; i < askPasswordLength; i++) {
     finalPassword = finalPassword + draftPassword[Math.floor(Math.random() * askPasswordLength)];
     console.log("Final password: " + finalPassword);
   }
-
 }
-
 
 
 
