@@ -13,39 +13,47 @@ var askLowerCaseCharacters = false;
 var askNumberCharacters = false;
 var askSpecialCharacters = false;
 
+// Store all characters in an array as a "draft" of the final password
+var draftPassword = [];
 
-
-// 1. App goes through a series of questions to determine what kind of a password the user wants
+// 1. App asks user a series of questions to determine what kinds of characters to include in password
 function generatePassword() {
-  // 1.1. Password length
+
+  // Q1. Password length
   var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
 
-  // 1.2. Ask if user wants uppercase letters
+  // Validate the answer and ask correction if it's not a number between 8 and 128
+  while (isNaN(askPasswordLength) || askPasswordLength <= 7 || askPasswordLength >= 128) {
+    window.alert("You must pick a number between 8 and 128 as the length of your password.");
+    var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
+  }
+
+  // Q2. Ask if user wants uppercase letters
   var askUpperCaseCharacters = window.confirm("Would you like your password to include uppercase characters?")
 
-  // 1.3. Ask if user wants lowercase letters
+  // Q3. Ask if user wants lowercase letters
   var askLowerCaseCharacters = window.confirm("Would you like your password to include lowercase characters?")
 
-  // 1.4. Ask if user wants numbers
+  // Q4. Ask if user wants numbers
   var askNumberCharacters = window.confirm("Would you like your password to include numbers?")
 
-  // 1.4. Ask if user wants special characters
+  // Q5. Ask if user wants special characters
   var askSpecialCharacters = window.confirm("Would you like your password to include special characters?")
 
-  console.log("Users answers so far:");
-  console.log("Password length: " + askPasswordLength);
-  console.log("Uppercase characters: " + askUpperCaseCharacters);
-  console.log("Lowercase characters: " + askLowerCaseCharacters);
-  console.log("Number characters: " + askNumberCharacters);
-  console.log("Special characters: " + askSpecialCharacters);
+  // Validate the answers to make sure user chose yes to at least one category of characters
+  while (askUpperCaseCharacters === false && askLowerCaseCharacters === false && askNumberCharacters === false && askSpecialCharacters === false) {
+    window.alert("You must pick at least one type of character to include in your password to continue.");
+    var askUpperCaseCharacters = window.confirm("Would you like your password to include uppercase characters?")
+    var askLowerCaseCharacters = window.confirm("Would you like your password to include lowercase characters?")
+    var askNumberCharacters = window.confirm("Would you like your password to include numbers?")
+    var askSpecialCharacters = window.confirm("Would you like your password to include special characters?")
+  }
 
-  // Store all characters from requested arrays in a draft string
-  var draftPassword = [];
 
-  // 2. App goes through some kind of loop that concatenates a random letter from each array into a draft string and repeats it as long as the amount of requested characters are met 
+  // 2. App goes through a loop that adds (concatenates) a random letter from each character array into draftPassword array and loops until the value of draftPassword.length is the same as the value of askPasswordLength 
   while (draftPassword.length < askPasswordLength) {
 
-    // Choose random character from uppercase characters array
+    // Add a character from upperCaseCharacter array
     if (askUpperCaseCharacters && draftPassword.length < askPasswordLength) {
 
       function randomNumber() {
@@ -56,6 +64,7 @@ function generatePassword() {
 
     }
 
+    // Add a character from lowerCaseCharacter array
     if (askLowerCaseCharacters && draftPassword.length < askPasswordLength) {
       function randomNumber() {
         var i = Math.floor(Math.random() * lowerCaseCharacter.length);
@@ -65,6 +74,7 @@ function generatePassword() {
 
     }
 
+    // Add a character from numberCharacter array
     if (askNumberCharacters && draftPassword.length < askPasswordLength) {
 
       function randomNumber() {
@@ -75,13 +85,13 @@ function generatePassword() {
 
     }
 
+    // Add a character from specialCharacter array
     if (askSpecialCharacters && draftPassword.length < askPasswordLength) {
       function randomNumber() {
         var i = Math.floor(Math.random() * specialCharacter.length);
         draftPassword = draftPassword.concat(specialCharacter[i]);
       }
       randomNumber();
-
     }
   }
 
@@ -92,7 +102,7 @@ function generatePassword() {
 
     // New array to temporarily store randomized characters in
     var newArray = draftPassword;
-    
+
     // Randomize temporary array
     newArray.sort(() => Math.random() - 0.5);
 
