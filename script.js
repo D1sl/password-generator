@@ -92,14 +92,26 @@ function generatePassword() {
 
   console.log("Created password so far: " + draftPassword);
 
-  // 3. App picks characters from the draft password string into the final password
-  var finalPassword = "";
+  // 3. App randomizes the draft password
+  function stringRandomizer() {
 
-  // Loop until final password has the requested amount of characters
-  for (var i = 0; i < askPasswordLength; i++) {
-    finalPassword = finalPassword + draftPassword[Math.floor(Math.random() * askPasswordLength)];
-    console.log("Final password: " + finalPassword);
+    // Convert the draft to an array
+    var newArray = draftPassword.split("");
+    console.log(newArray);
+    
+    // Randomize that array
+    newArray.sort(() => Math.random() - 0.5);
+
+    //Put the array back together as a string
+    draftPassword = newArray.join("");
   }
+
+  stringRandomizer();
+
+  console.log("Randomized password: " + draftPassword);
+
+  var finalPassword = draftPassword;
+  console.log("Final password: " + finalPassword)
 }
 
 
