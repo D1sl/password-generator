@@ -4,7 +4,7 @@
 Build code that through a series of questions generates a strong password that can contain any alphabetical characters, numbers or special characters.
   
 ## Challenges
-![Screenshot of a bug](/bug.png)
+![Screenshot of a bug](./assets/images/bug.png)
 
 My first instinct was to dump all characters from all categories that the user selected into an array and then randomly pick characters from there. 
 
