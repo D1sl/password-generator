@@ -95,9 +95,7 @@ function generatePassword() {
     }
   }
 
-  console.log("Randomly picked characters for this password: " + draftPassword);
-
-  // 3. App randomizes the picked characters
+  // 3. App randomizes the picked characters and converts the original array into a string
   function orderRandomizer() {
 
     // New array to temporarily store randomized characters in
@@ -106,12 +104,14 @@ function generatePassword() {
     // Randomize temporary array
     newArray.sort(() => Math.random() - 0.5);
 
-    //Put the temporary array back together in the original variable
+    // Feed items from the temporary array back into the original variable as a string
     draftPassword = newArray.join("");
   }
 
   // Run array randomizer
   orderRandomizer();
+
+  // Feed contents of the draftPassword into the randomPassword
   var randomPassword = draftPassword;
   console.log("Final randomized password: " + randomPassword)
   return randomPassword
