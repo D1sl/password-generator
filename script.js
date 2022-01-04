@@ -16,7 +16,6 @@ var askSpecialCharacters = false;
 
 
 // 1. App goes through a series of questions to determine what kind of a password the user wants
-
 function generatePassword() {
   // 1.1. Password length
   var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
@@ -41,7 +40,7 @@ function generatePassword() {
   console.log("Special characters: " + askSpecialCharacters);
 
   // Store all characters from requested arrays in a draft string
-  var draftPassword = "";
+  var draftPassword = [];
 
   // 2. App goes through some kind of loop that concatenates a random letter from each array into a draft string and repeats it as long as the amount of requested characters are met 
   while (draftPassword.length < askPasswordLength) {
@@ -51,7 +50,6 @@ function generatePassword() {
 
       function randomNumber() {
         var i = Math.floor(Math.random() * upperCaseCharacter.length);
-        console.log(i);
         draftPassword = draftPassword.concat(upperCaseCharacter[i]);
       }
       randomNumber();
@@ -61,7 +59,6 @@ function generatePassword() {
     if (askLowerCaseCharacters && draftPassword.length < askPasswordLength) {
       function randomNumber() {
         var i = Math.floor(Math.random() * lowerCaseCharacter.length);
-        console.log(i);
         draftPassword = draftPassword.concat(lowerCaseCharacter[i]);
       }
       randomNumber();
@@ -72,7 +69,6 @@ function generatePassword() {
 
       function randomNumber() {
         var i = Math.floor(Math.random() * numberCharacter.length);
-        console.log(i);
         draftPassword = draftPassword.concat(numberCharacter[i]);
       }
       randomNumber();
@@ -82,7 +78,6 @@ function generatePassword() {
     if (askSpecialCharacters && draftPassword.length < askPasswordLength) {
       function randomNumber() {
         var i = Math.floor(Math.random() * specialCharacter.length);
-        console.log(i);
         draftPassword = draftPassword.concat(specialCharacter[i]);
       }
       randomNumber();
@@ -90,44 +85,27 @@ function generatePassword() {
     }
   }
 
-  console.log("Created password so far: " + draftPassword);
+  console.log("Randomly picked characters for this password: " + draftPassword);
 
-  // 3. App randomizes the draft password
-  function stringRandomizer() {
+  // 3. App randomizes the picked characters
+  function orderRandomizer() {
 
-    // Convert the draft to an array
-    var newArray = draftPassword.split("");
-    console.log(newArray);
+    // New array to temporarily store randomized characters in
+    var newArray = draftPassword;
     
-    // Randomize that array
+    // Randomize temporary array
     newArray.sort(() => Math.random() - 0.5);
 
-    //Put the array back together as a string
+    //Put the temporary array back together in the original variable
     draftPassword = newArray.join("");
   }
 
-  stringRandomizer();
-
-  console.log("Randomized password: " + draftPassword);
-
-  var finalPassword = draftPassword;
-  console.log("Final password: " + finalPassword)
+  // Run array randomizer
+  orderRandomizer();
+  var randomPassword = draftPassword;
+  console.log("Final randomized password: " + randomPassword)
+  return randomPassword
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
