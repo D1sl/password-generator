@@ -26,7 +26,7 @@ function generatePassword() {
   var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
 
   // Validate the answer and ask correction if it's not a number between 8 and 128
-  while (isNaN(askPasswordLength) || askPasswordLength <= 7 || askPasswordLength >= 128) {
+  while (isNaN(askPasswordLength) || askPasswordLength <= 7 || askPasswordLength >= 129) {
     window.alert("You must pick a number between 8 and 128 as the length of your password.");
     var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
   }
