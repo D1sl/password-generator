@@ -14,10 +14,13 @@ var askNumberCharacters = false;
 var askSpecialCharacters = false;
 
 // Store all characters in an array as a "draft" of the final password
-var draftPassword = [];
+var draftPassword = "";
 
 // 1. App asks user a series of questions to determine what kinds of characters to include in password
 function generatePassword() {
+
+  // In case user runs app again, reset draft
+  var draftPassword = "";
 
   // Q1. Password length
   var askPasswordLength = window.prompt("How long would you like your password to be? Answer with a number between 8-128.");
@@ -94,24 +97,25 @@ function generatePassword() {
       randomNumber();
     }
   }
-
+  
   // 3. App randomizes the picked characters and converts the original array into a string
-  function orderRandomizer() {
+  function draftRandomizer() {
 
-    // New array to temporarily store randomized characters in
-    var newArray = draftPassword;
+    // Takes draftPassword, converts it into an array and stores it in newArray
+    var newArray = draftPassword.split('');
 
-    // Randomize temporary array
-    newArray.sort(() => Math.random() - 0.5);
+    // Randomizes the temporary array
+    newArray.sort(function () {
+      return 0.5 - Math.random();
+    });
 
-    // Feed items from the temporary array back into the original variable as a string
-    draftPassword = newArray.join("");
+    // Converts array into a string and feeds it back to draftPassword
+    draftPassword = newArray.join('');
   }
 
   // Run array randomizer
-  orderRandomizer();
+  draftRandomizer();
 
-  // Feed contents of the draftPassword into the randomPassword
   var randomPassword = draftPassword;
   console.log("Final randomized password: " + randomPassword)
   return randomPassword
